@@ -143,7 +143,8 @@ def test_registration_with_empty_name_lastname_fields(browser):
 @pytest.mark.negative
 @pytest.mark.xfail
 def test_registration_with_unacceptable_name_lastname_fields(browser):
-    """Проверка возможности зарегистрировать нового пользователя с пустыми полнями имя, фамилия"""
+    """Проверка возможности зарегистрировать нового пользователя
+    с полями имя, фамилия заполненными латиницей"""
     link = MSL.ELK_WEB
     page_auth = AuthPage(browser, link)
     page_auth.open()
