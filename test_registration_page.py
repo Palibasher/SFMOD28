@@ -139,3 +139,24 @@ def test_registration_with_empty_name_lastname_fields(browser):
     page.push_confirm_register_button()
     time.sleep(2)
     page.should_be_same_page()
+
+@pytest.mark.negative
+@pytest.mark.xfail
+def test_registration_with_unacceptable_name_lastname_fields(browser):
+    """Проверка возможности зарегистрировать нового пользователя с пустыми полнями имя, фамилия"""
+    link = MSL.ELK_WEB
+    page_auth = AuthPage(browser, link)
+    page_auth.open()
+    page_auth.go_to_register_page()
+    page = RegiserPage(browser, browser.current_url)
+    page.should_be_register_page()
+    user = page.generate_new_user()
+    page.pick_region_in_region_field()
+    page.pick_firstname_field().send_keys("Jack")
+    page.pick_lastname_field().send_keys("Sparrow")
+    page.pick_email_phone_field().send_keys(user["email"])
+    page.pick_password_field().send_keys(user["password"])
+    page.pick_password_conf_field().send_keys(user["password"])
+    page.push_confirm_register_button()
+    time.sleep(20)
+    page.should_be_same_page()
